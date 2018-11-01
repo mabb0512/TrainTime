@@ -1,0 +1,15 @@
+.center {
+    text-align: center;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+.border-class
+{
+  border:thin black solid;
+  --margin:20px;
+  padding:20px;
+}
