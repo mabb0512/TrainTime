@@ -50,34 +50,19 @@ $("#train-submit").on("click", function(event) {
 });
 
 database.ref().on("child_added", function(childSnapshot) {
-
-    var currentTime = moment(moment()).format("hh:mm");
     
     var id = childSnapshot.val().trainId;
     var name = childSnapshot.val().trainName;
     var destination = childSnapshot.val().trainDest;
-    var time = childSnapshot.val().trainTime;
+    var firstTime = childSnapshot.val().trainTime;
     var frequency = childSnapshot.val().trainFreq;
 
-    var startTime = moment(time, 'HH:mm');
-    var nextTrain = moment(startTime, 'HH:mm').add(frequency, 'minutes').format('HH:mm');
-    var duration = moment(nextTrain, 'HHmm').fromNow();
-
-    var trainOnTime = moment(startTime, 'HHmm').fromNow();
-    console.log(trainOnTime);
-
-    //check if start time already past
-    if (duration.slice(-3) == 'ago') {
-
-        nextTrain = moment(currentTime, 'HH:mm').add(frequency, 'minutes').format('HH:mm');
-    }
-
-    else {
-
-        nextTrain = time;
-    }
-
-    var away = ((moment(nextTrain, 'HHmm').fromNow()).slice(3, 5).trim()) * 60;
+    var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    var currentTime = moment();
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    var timeApart = diffTime % frequency;
+    var minutesAway = frequency - timeApart;
+    var nextTrain = moment().add(minutesAway, "minutes");
   
     // Create new row
     var newRow = $("<tr>").append(
@@ -85,10 +70,8 @@ database.ref().on("child_added", function(childSnapshot) {
     $("<td>").text(name),
     $("<td>").text(destination),
     $("<td>").text(frequency),
-    $("<td>").text(nextTrain),
-    $("<td>").text(away)
-
-    );
+    $("<td>").text(moment(nextTrain).format("hh:mm")),
+    $("<td>").text(minutesAway));
 
     // Append new row to the table
     $("#train-table > tbody").append(newRow);
