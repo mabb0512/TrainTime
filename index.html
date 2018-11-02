@@ -3,24 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Train Time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="assets/javascript/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    
 </head>
 <body>
-
     <div class="container-fluid">
         <div class="jumbotron center text-white bg-dark">
             <h1 class="center">Train Time!</h1>
         </div>
-        <div class="card">
+        <div class="card" id="train-table">
             <div class="card-header text-white bg-dark">Current Train Schedule</div>
             <div class="card-body">
-                <table class="table">
+                <table class="table" id="train-table">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -31,11 +32,13 @@
                         <th scope="col">Minutes Away</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
         <br>
-        <div class="card">
+        <div class="card" id="add-train">
             <div class="card-header text-white bg-dark">Add Train</div>
             <div class="card-body">
                 <form>
@@ -55,11 +58,11 @@
                         <label for="formGroupExampleInput2">Frequency (min)</label>
                         <input type="text" class="form-control" id="train-freq">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" id="train-submit">Submit</button>
                 </form>
             </div>
         </div>
     </div>
-    
+    <script src="assets/javascript/app.js"></script>
 </body>
 </html>

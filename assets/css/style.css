@@ -3,7 +3,7 @@
     font-weight: bold;
 }
 
-label {
+label, .card-header{
     font-weight: bold;
 }
 
