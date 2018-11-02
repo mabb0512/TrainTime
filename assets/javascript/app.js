@@ -51,8 +51,7 @@ $("#train-submit").on("click", function(event) {
 
 database.ref().on("child_added", function(childSnapshot) {
 
-    var today = new Date($.now());
-    var currentTime = today.getHours() + ":" + today.getMinutes();
+    var currentTime = moment(moment()).format("hh:mm");
     
     var id = childSnapshot.val().trainId;
     var name = childSnapshot.val().trainName;
@@ -78,7 +77,7 @@ database.ref().on("child_added", function(childSnapshot) {
         nextTrain = time;
     }
 
-    var away = moment(nextTrain, 'HHmm').fromNow();
+    var away = ((moment(nextTrain, 'HHmm').fromNow()).slice(3, 5).trim()) * 60;
   
     // Create new row
     var newRow = $("<tr>").append(
